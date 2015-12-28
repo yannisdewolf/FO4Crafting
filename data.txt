@@ -1,0 +1,60 @@
+
+--delete all relationships and nodes
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+DELETE n,r
+
+--alle nodes en relaties om product te bekomen
+MATCH (r)-[*]->(craftable {name:'oil'})  return craftable, r
+
+CREATE(mutfruitplant:Plant {name:'mutfruit plant'})
+CREATE(cornplant:Plant {name:'corn plant'})
+CREATE(tacoplant:Plant {name:'taco plant'})
+CREATE(waterpurifier:Machine {name:'waterpurifier'})
+CREATE(mutfruit:Fruit {name:'mutfruit'})
+CREATE(corn:Fruit {name:'corn'})
+CREATE(taco:Fruit {name:'taco'})
+CREATE(purified_water:Medicine {name:'purified water'})
+CREATE(vegetable_starch:Craftable {name:'vegetable starsh'})
+CREATE(adhesive:Craftable {name:'adhesive'})
+
+
+
+CREATE (mutfruit)-[:INGREDIENT_FOR]->(vegetable_starch)
+CREATE (corn)-[:INGREDIENT_FOR]->(vegetable_starch)
+CREATE (taco)-[:INGREDIENT_FOR]->(vegetable_starch)
+CREATE (purified_water)-[:INGREDIENT_FOR]->(vegetable_starch)
+
+CREATE (vegetable_starch)-[:DROPS_INTO]->(adhesive)
+
+CREATE (mutfruitplant)-[:PRODUCES]->(mutfruit)
+CREATE (cornplant)-[:PRODUCES]->(corn)
+CREATE (tacoplant)-[:PRODUCES]->(taco)
+CREATE (waterpurifier)-[:PRODUCES]->(purified_water)
+
+
+CREATE (acid:Raw {name:'acid'})
+CREATE (bone:Raw {name:'bone'})
+CREATE (steel:Raw {name:'steel'})
+CREATE (oil:Raw:Craftable {name:'oil'})
+CREATE (acid)-[:INGREDIENT_FOR]->(oil)
+CREATE (bone)-[:INGREDIENT_FOR]->(oil)
+CREATE (steel)-[:INGREDIENT_FOR]->(oil)
+CREATE (purified_water)-[:INGREDIENT_FOR]->(oil)
+
+
+CREATE(abraxo_cleaner:Item {name:'abraxo cleaner'})
+CREATE(anti_freeze_bottle:Item {name:'anti freeze bottle'})
+CREATE(bag_of_fertilizer:Item {name:'bag of fertilizer'})
+CREATE(bloatfly_gland:Item {name:'bloatfly gland'})
+CREATE(bloodbug_proboscis:Item {name:'bloodbug proboscis'})
+CREATE(coolant:Item {name:'coolant'})
+CREATE(ichor_sac:Item {name:'ichor sac'})
+CREATE(makeshift_battery:Item {name:'makeshift battery'})
+CREATE(suprathaw_antifreeze:Item {name:'sprathaw antifreeze'})
+
+CREATE(bloatfly:Animal {name:'bloatfly'})
+
+CREATE(bloatfly)-[:PROVIDES]->(bloatfly_gland)
+CREATE(bloatfly_gland)-[:PROVIDES]->(acid)
+
